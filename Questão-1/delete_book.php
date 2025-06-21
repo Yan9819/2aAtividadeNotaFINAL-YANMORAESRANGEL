@@ -1,13 +1,9 @@
 <?php
 include 'database.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $stmt = $db->prepare("INSERT INTO livros (titulo, autor, ano_publicacao) VALUES (?, ?, ?)");
-    $stmt->execute([
-        $_POST['titulo'],
-        $_POST['autor'],
-        $_POST['ano_publicacao']
-    ]);
+if (isset($_GET['id'])) {
+    $stmt = $db->prepare("DELETE FROM livros WHERE id = ?");
+    $stmt->execute([$_GET['id']]);
 }
 
 header("Location: index.php");
